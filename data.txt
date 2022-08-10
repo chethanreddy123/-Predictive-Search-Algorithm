@@ -1,7 +1,3 @@
-from urllib.parse import MAX_CACHE_SIZE
-import streamlit as st
-from fast_autocomplete import AutoComplete
-
 ListOfWords = ['Abdominal pain',
  'Abdominal redness',
  'Abdominal swelling',
@@ -115,44 +111,3 @@ ListOfWords = ['Abdominal pain',
  'Hand swelling',
  'Headache',
  'Heart palpitations']
-
-AvgLenght = 0
-
-for i in ListOfWords:
-    AvgLenght += len(i)
-
-AvgLenght = AvgLenght / len(ListOfWords)
-
-print(AvgLenght)
-
-
-# print("The Total Lenght of the List is:",len(ListOfWords))
-
-words = {}
-
-for word in ListOfWords:
-    words[word] = {}
-        
-# print(words)
-
-st.title("Welcome to DocPlus", anchor=None)
-st.header("Please Do Enter your Symptoms ", anchor=None)
-
-
-autocomplete = AutoComplete(words=words)
-max_cost = int(AvgLenght // 4)
-max_size = int(AvgLenght // 4)
-print(max_cost , max_size)
-
-
-
-
-selected = st.text_input("")
-KeyWords = autocomplete.search(word=selected, max_cost=max_cost, size=max_size)
-NewKeyWords = []
-
-for i in KeyWords:
-    NewKeyWords.append(str(i[0]))
-
-st.selectbox("Search",NewKeyWords, index=0)
-print(KeyWords)
