@@ -1,6 +1,7 @@
 from urllib.parse import MAX_CACHE_SIZE
 import streamlit as st
 from fast_autocomplete import AutoComplete
+import NLP_Model
 
 ListOfWords = ['Abdominal pain',
  'Abdominal redness',
@@ -148,11 +149,16 @@ print(max_cost , max_size)
 
 
 selected = st.text_input("")
-KeyWords = autocomplete.search(word=selected, max_cost=max_cost, size=max_size)
+KeyWords_Math = autocomplete.search(word=selected, max_cost=max_cost, size=max_size)
+KeyWords_NLP = NLP_Model.my_autocorrect(selected)
 NewKeyWords = []
 
-for i in KeyWords:
+for i in KeyWords_Math:
     NewKeyWords.append(str(i[0]))
 
-st.selectbox("Search",NewKeyWords, index=0)
-print(KeyWords)
+st.selectbox("Search with AI - Math and Tree Data Structure",NewKeyWords, index=0)
+
+KeyWords_NLP = NLP_Model.my_autocorrect(selected)
+
+st.selectbox("Search with NLP Model" , KeyWords_NLP, index=0)
+print(KeyWords_Math)
